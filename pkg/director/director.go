@@ -34,6 +34,16 @@ func (d *Director) Connect() *Director {
 	return d
 }
 
+func (d *Director) ConnectWithConfig(cfg *Config) *Director {
+	d.rod.Connect(
+		rod.WithPreferences(cfg.Preferences),
+		rod.WithWorkingDir(cfg.WorkingDir),
+		rod.WithUserDataDir(cfg.UserDataDir),
+	)
+
+	return d
+}
+
 // SetExt sets the extension to be converted to.
 func (d *Director) SetExt(ext internal.Ext) *Director {
 	d.generator = internal.Build(ext)
