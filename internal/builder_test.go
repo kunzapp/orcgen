@@ -3,10 +3,10 @@ package internal
 import (
 	"testing"
 
-	"github.com/luabagg/orcgen/internal/generator"
-	"github.com/luabagg/orcgen/internal/generator/jpeg"
-	"github.com/luabagg/orcgen/internal/generator/pdf"
-	"github.com/luabagg/orcgen/internal/generator/png"
+	"github.com/kunzapp/orcgen/internal/generator"
+	"github.com/kunzapp/orcgen/internal/generator/jpeg"
+	"github.com/kunzapp/orcgen/internal/generator/pdf"
+	"github.com/kunzapp/orcgen/internal/generator/png"
 	"github.com/stretchr/testify/assert"
 )
 

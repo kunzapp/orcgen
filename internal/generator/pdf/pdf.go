@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-rod/rod"
 	"github.com/go-rod/rod/lib/proto"
-	"github.com/luabagg/orcgen/internal/generator"
+	"github.com/kunzapp/orcgen/internal/generator"
 )
 
 // PDFBuilder struct.

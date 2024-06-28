@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/go-rod/rod"
-	"github.com/luabagg/orcgen/internal/generator"
+	"github.com/kunzapp/orcgen/internal/generator"
 	"github.com/stretchr/testify/assert"
 )
 
