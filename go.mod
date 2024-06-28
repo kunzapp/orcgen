@@ -1,4 +1,4 @@
-module github.com/luabagg/orcgen
+module github.com/kunzapp/orcgen
 
 go 1.21
 
