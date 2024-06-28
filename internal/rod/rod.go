@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/go-rod/rod"
+	"github.com/go-rod/rod/lib/launcher"
 )
 
 // Rod is responsible for browsser operations.
@@ -18,8 +19,18 @@ type Rod struct {
 }
 
 // Connect starts the Browser connection.
-func (r *Rod) Connect() {
-	r.Browser = rod.New().MustConnect()
+func (r *Rod) Connect(opts ...Option) {
+	defaultCfg := &Config{}
+	for _, opt := range opts {
+		opt(defaultCfg)
+	}
+
+	l := launcher.New().
+		Preferences(defaultCfg.Preferences).
+		WorkingDir(defaultCfg.WorkingDir).
+		UserDataDir(defaultCfg.UserDataDir)
+	u := l.MustLaunch()
+	r.Browser = rod.New().ControlURL(u).MustConnect()
 }
 
 // Close closes the Browser connection.
@@ -54,7 +65,7 @@ func (r *Rod) ByteToPage(bin []byte) (*rod.Page, error) {
 func (r *Rod) WaitLoad(page *rod.Page) {
 	page = page.Timeout(r.LoadTimeout).MustWaitLoad()
 
-	wait := page.WaitRequestIdle(r.PageIdleTime, nil, nil)
+	wait := page.WaitRequestIdle(r.PageIdleTime, nil, nil, nil)
 	wait()
 
 	page.CancelTimeout()
