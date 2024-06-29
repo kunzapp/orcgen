@@ -39,6 +39,7 @@ func (d *Director) ConnectWithConfig(cfg *Config) *Director {
 		rod.WithPreferences(cfg.Preferences),
 		rod.WithWorkingDir(cfg.WorkingDir),
 		rod.WithUserDataDir(cfg.UserDataDir),
+		rod.WithBin(cfg.Bin),
 	)
 
 	return d

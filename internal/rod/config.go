@@ -3,9 +3,16 @@ package rod
 type Option func(*Config)
 
 type Config struct {
+	Bin         string
 	Preferences string
 	WorkingDir  string
 	UserDataDir string
+}
+
+func WithBin(bin string) Option {
+	return func(cfg *Config) {
+		cfg.Bin = bin
+	}
 }
 
 func WithPreferences(preferences string) Option {

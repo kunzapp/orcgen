@@ -26,6 +26,7 @@ func (r *Rod) Connect(opts ...Option) {
 	}
 
 	l := launcher.New().
+		Bin(defaultCfg.Bin).
 		Preferences(defaultCfg.Preferences).
 		WorkingDir(defaultCfg.WorkingDir).
 		UserDataDir(defaultCfg.UserDataDir)
