@@ -20,16 +20,26 @@ type Rod struct {
 
 // Connect starts the Browser connection.
 func (r *Rod) Connect(opts ...Option) {
-	defaultCfg := &Config{}
+	cfg := &Config{}
 	for _, opt := range opts {
-		opt(defaultCfg)
+		opt(cfg)
+	}
+
+	if cfg.InLambda {
+		l := launchInLambda()
+		u := l.Preferences(cfg.Preferences).
+			WorkingDir(cfg.WorkingDir).
+			UserDataDir(cfg.UserDataDir).
+			MustLaunch()
+		r.Browser = rod.New().ControlURL(u).MustConnect()
+		return
 	}
 
 	l := launcher.New().
-		Bin(defaultCfg.Bin).
-		Preferences(defaultCfg.Preferences).
-		WorkingDir(defaultCfg.WorkingDir).
-		UserDataDir(defaultCfg.UserDataDir)
+		Bin(cfg.Bin).
+		Preferences(cfg.Preferences).
+		WorkingDir(cfg.WorkingDir).
+		UserDataDir(cfg.UserDataDir)
 	u := l.MustLaunch()
 	r.Browser = rod.New().ControlURL(u).MustConnect()
 }
@@ -70,4 +80,36 @@ func (r *Rod) WaitLoad(page *rod.Page) {
 	wait()
 
 	page.CancelTimeout()
+}
+
+func launchInLambda() *launcher.Launcher {
+	return launcher.New().
+		// where lambda runtime stores chromium
+		Bin("/opt/chromium").
+
+		// recommended flags to run in serverless environments
+		// see https://github.com/alixaxel/chrome-aws-lambda/blob/master/source/index.ts
+		Set("allow-running-insecure-content").
+		Set("autoplay-policy", "user-gesture-required").
+		Set("disable-component-update").
+		Set("disable-domain-reliability").
+		Set("disable-features", "AudioServiceOutOfProcess", "IsolateOrigins", "site-per-process").
+		Set("disable-print-preview").
+		Set("disable-setuid-sandbox").
+		Set("disable-site-isolation-trials").
+		Set("disable-speech-api").
+		Set("disable-web-security").
+		Set("disk-cache-size", "33554432").
+		Set("enable-features", "SharedArrayBuffer").
+		Set("hide-scrollbars").
+		Set("ignore-gpu-blocklist").
+		Set("in-process-gpu").
+		Set("mute-audio").
+		Set("no-default-browser-check").
+		Set("no-pings").
+		Set("no-sandbox").
+		Set("no-zygote").
+		Set("single-process").
+		Set("use-gl", "swiftshader").
+		Set("window-size", "1920", "1080")
 }

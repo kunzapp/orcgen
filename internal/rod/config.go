@@ -7,6 +7,8 @@ type Config struct {
 	Preferences string
 	WorkingDir  string
 	UserDataDir string
+
+	InLambda bool
 }
 
 func WithBin(bin string) Option {
@@ -30,5 +32,11 @@ func WithWorkingDir(workingDir string) Option {
 func WithUserDataDir(userDataDir string) Option {
 	return func(cfg *Config) {
 		cfg.UserDataDir = userDataDir
+	}
+}
+
+func WithLambda(inLambda bool) Option {
+	return func(cfg *Config) {
+		cfg.InLambda = inLambda
 	}
 }
