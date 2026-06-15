@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/luabagg/orcgen"
+	"github.com/kunzapp/orcgen"
 )
 
 // ExampleNew gives examples using the New function from orcgen.
