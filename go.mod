@@ -5,8 +5,8 @@ go 1.21
 toolchain go1.22.3
 
 require (
-	github.com/go-rod/rod v0.116.1
-	github.com/stretchr/testify v1.8.2
+	github.com/go-rod/rod v0.116.2
+	github.com/stretchr/testify v1.11.1
 )
 
 require (
@@ -16,6 +16,6 @@ require (
 	github.com/ysmood/goob v0.4.0 // indirect
 	github.com/ysmood/got v0.40.0 // indirect
 	github.com/ysmood/gson v0.7.3 // indirect
-	github.com/ysmood/leakless v0.8.0 // indirect
+	github.com/ysmood/leakless v0.9.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
